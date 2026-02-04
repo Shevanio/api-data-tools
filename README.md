@@ -190,7 +190,7 @@ gh-stats --repo nodejs/node --export stats.json
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/api-data-tools.git
+git clone https://github.com/Shevanio/api-data-tools.git
 cd api-data-tools
 
 # Create virtual environment
