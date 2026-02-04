@@ -148,34 +148,40 @@ csv2sql data.csv --batch-size 1000
 ---
 
 ### 5. **GitHub Stats Fetcher** (`gh-stats`)
-Analyze GitHub repositories and extract metrics.
+Analyze GitHub repositories and extract metrics using GitHub API.
 
 **Features:**
-- Repository statistics (stars, forks, issues)
-- Contributor analysis
-- Commit frequency graphs
-- Language breakdown
-- Issue/PR trends
-- Compare repositories
-- Export to JSON/CSV
-- Organization-wide stats
+- Repository statistics (stars, forks, watchers, issues)
+- Growth metrics (stars per day)
+- Top contributors with contributions
+- Language breakdown with visual bars
+- Repository comparison (side-by-side)
+- Search repositories with filters
+- Multiple output formats (rich tables, JSON)
+- Authenticated API support (rate limit: 5000/hour)
 
 **Usage:**
 ```bash
-# Single repo stats
+# Get repo stats
 gh-stats --repo facebook/react
 
 # Compare repos
-gh-stats --compare react,vue,angular
+gh-stats --repo facebook/react --repo vuejs/vue --compare
 
-# Organization stats
-gh-stats --org microsoft --top 10
+# Show contributors
+gh-stats --repo torvalds/linux --contributors --limit 20
 
-# Export data
-gh-stats --repo nodejs/node --export stats.json
+# Language breakdown
+gh-stats --repo python/cpython --languages
+
+# Search repos
+gh-stats --search "machine learning" --sort stars --limit 10
+
+# JSON output
+gh-stats --repo nodejs/node --output json
 ```
 
-**Status:** 📋 Planned
+**Status:** 🚧 Complete (MVP)
 
 ---
 
@@ -288,13 +294,12 @@ gh-stats --repo popular/project --export data.csv
 ## 📊 Project Roadmap
 
 - [x] Project setup and structure
-- [ ] Webhook Receiver MVP (Phase 1)
-- [ ] Data Converter MVP (Phase 1)
+- [x] Webhook Receiver MVP (Phase 1) ✅
+- [x] Data Converter MVP (Phase 1) ✅
+- [x] GitHub Stats MVP (Phase 1) ✅
 - [ ] API Tester MVP (Phase 2)
 - [ ] CSV to SQL MVP (Phase 2)
-- [ ] GitHub Stats MVP (Phase 2)
 - [ ] Integration testing suite
-- [ ] CI/CD pipeline
 - [ ] Published pip package
 - [ ] Web dashboard for Webhook Receiver
 
