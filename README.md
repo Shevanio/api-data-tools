@@ -22,16 +22,21 @@ Modern development involves constant interaction with APIs and data formats. The
 ## 🛠️ Available Tools
 
 ### 1. **API Tester CLI** (`api-test`)
-CURL on steroids with collections, variables, and history.
+CURL on steroids with beautiful output and comprehensive features.
 
 **Features:**
-- HTTP methods (GET, POST, PUT, PATCH, DELETE)
-- Headers and authentication (Bearer, Basic, API Key)
-- Request body templates
-- Environment variables
-- Request history
-- Response formatting (JSON, XML, HTML)
-- Collection support (like Postman)
+- HTTP methods (GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS)
+- Multiple authentication methods (Bearer, Basic, API Key)
+- Custom headers support
+- Request body (JSON or raw text)
+- Query parameters
+- Response formatting with syntax highlighting
+- Status code visualization (color-coded)
+- Response time measurement
+- Follow redirects option
+- SSL verification control
+- Timeout configuration
+- Verbose mode for debugging
 
 **Usage:**
 ```bash
@@ -41,46 +46,59 @@ api-test GET https://api.github.com/users/octocat
 # POST with JSON body
 api-test POST https://api.example.com/users \
   --data '{"name": "John", "email": "john@example.com"}' \
-  --header "Authorization: Bearer TOKEN"
+  --header "Content-Type: application/json"
 
-# Load from collection
-api-test run --collection my-api.json --env production
+# With Bearer auth
+api-test GET https://api.example.com/protected \
+  --auth bearer --token YOUR_TOKEN
 
-# View history
-api-test history --last 10
+# With query parameters
+api-test GET https://api.example.com/search \
+  --param "q=python" --param "limit=10"
+
+# Verbose output
+api-test GET https://api.example.com/data --verbose
 ```
 
-**Status:** 📋 Planned
+**Status:** ✅ Complete
 
 ---
 
-### 2. **JSON/YAML Converter** (`data-convert`)
+### 2. **JSON/YAML/TOML Converter** (`data-convert`)
 Transform, validate, and query JSON/YAML/TOML files.
 
 **Features:**
-- Format conversion (JSON ↔ YAML ↔ TOML)
-- JSON Schema validation
-- JQ-style querying
-- Pretty printing
-- Minification
-- Batch processing
+- Bidirectional format conversion (JSON ↔ YAML ↔ TOML)
+- Auto-format detection from file extension
+- JMESPath querying for JSON data
+- Pretty printing with syntax highlighting
+- Minification (JSON only)
+- File or stdin input
+- File or stdout output
+- Error handling with user-friendly messages
 
 **Usage:**
 ```bash
 # Convert JSON to YAML
 data-convert config.json --to yaml
 
-# Query JSON
-data-convert data.json --query '.users[0].name'
+# Convert YAML to JSON
+data-convert config.yaml --to json --output config.json
 
-# Validate against schema
-data-convert api-response.json --validate schema.json
+# Query JSON with JMESPath
+data-convert data.json --query 'users[0].name'
+
+# Minify JSON
+data-convert large.json --minify
 
 # Pretty print
 data-convert minified.json --pretty
+
+# Convert from stdin
+cat config.json | data-convert --from json --to yaml
 ```
 
-**Status:** 📋 Planned
+**Status:** ✅ Complete
 
 ---
 
@@ -120,13 +138,16 @@ webhook-recv --port 3000 --mock-response '{"status": "ok"}'
 Generate SQL schemas and INSERT statements from CSV files.
 
 **Features:**
-- Automatic schema inference
-- Type detection (INT, VARCHAR, DATE, etc.)
+- Automatic schema inference from CSV data
+- Intelligent type detection (INTEGER, TEXT, REAL, BOOLEAN)
 - Custom table names
 - Multiple database dialects (PostgreSQL, MySQL, SQLite)
-- Batch inserts for performance
-- Handle NULL values
-- Primary key detection
+- Batch inserts for performance (configurable batch size)
+- Handle NULL values and empty strings
+- Schema-only mode
+- Data-only mode (skip CREATE TABLE)
+- Syntax highlighting for SQL output
+- File or stdout output
 
 **Usage:**
 ```bash
@@ -139,11 +160,17 @@ csv2sql data.csv --dialect postgresql --output data.sql
 # Schema only
 csv2sql large-file.csv --schema-only
 
-# Batch inserts (1000 rows per statement)
-csv2sql data.csv --batch-size 1000
+# Data only (skip CREATE TABLE)
+csv2sql data.csv --table users --data-only
+
+# Batch inserts (500 rows per statement)
+csv2sql data.csv --batch-size 500 --output inserts.sql
+
+# SQLite dialect
+csv2sql contacts.csv --dialect sqlite --table contacts
 ```
 
-**Status:** 📋 Planned
+**Status:** ✅ Complete
 
 ---
 
@@ -293,15 +320,17 @@ gh-stats --repo popular/project --export data.csv
 
 ## 📊 Project Roadmap
 
-- [x] Project setup and structure
-- [x] Webhook Receiver MVP (Phase 1) ✅
-- [x] Data Converter MVP (Phase 1) ✅
-- [x] GitHub Stats MVP (Phase 1) ✅
-- [ ] API Tester MVP (Phase 2)
-- [ ] CSV to SQL MVP (Phase 2)
+- [x] Project setup and structure ✅
+- [x] Webhook Receiver MVP ✅
+- [x] Data Converter MVP ✅
+- [x] GitHub Stats MVP ✅
+- [x] API Tester MVP ✅
+- [x] CSV to SQL MVP ✅
 - [ ] Integration testing suite
 - [ ] Published pip package
 - [ ] Web dashboard for Webhook Receiver
+
+**🎉 All 5 core tools complete! (100%)**
 
 ---
 
